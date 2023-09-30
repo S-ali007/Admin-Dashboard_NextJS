@@ -18,7 +18,7 @@ const Dashboard = () => {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between ">
       <div className="p-12 m-auto max-w-[547px] border-slate-300 border border-rounded w-full shadow rounded bg-white text-red">
         <div className="mx-auto head-logo">
           <p className="pt-6 text-2xl font-semibold leading-6 text-center text-slate-800">
