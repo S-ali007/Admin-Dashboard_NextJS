@@ -1,22 +1,24 @@
-"use client";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { Cookies } from "react-cookie";
-import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { removeUser } from "../redux/slice";
+import { useDispatch } from "react-redux";
 
 const Logout = () => {
   const router = useRouter();
   const cookies = new Cookies();
+  const dispatch = useDispatch(); // Get the dispatch function from react-redux
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e,id) => {
     e.preventDefault();
-
     cookies.remove("userToken");
-
+   
+    dispatch(removeUser({id})); 
     router.push("/");
     toast.success("Successfully logged out!");
   };
+
   return (
     <div>
       <button
@@ -28,4 +30,5 @@ const Logout = () => {
     </div>
   );
 };
+
 export default Logout;
