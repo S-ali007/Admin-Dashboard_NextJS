@@ -3,46 +3,17 @@ import { useRouter } from "next/navigation";
 import { Cookies } from "react-cookie";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux"; // Import useDispatch from react-redux
+import { loginUser } from "../redux/slice";
 
 const Login = () => {
   const router = useRouter();
+  const dispatch = useDispatch(); // Initialize useDispatch
 
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (formData.username.trim() == "") {
-      return toast.error("please Enter email ");
-    }
-    if (formData.password.trim() == "") {
-      return toast.error("please Enter password ");
-    }
-    const cookies = new Cookies();
-
-    fetch("https://dummyjson.com/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // console.log(data)
-        if (data.token) {
-          cookies.set("userToken", data.token);
-          router.push("/dashboard");
-          toast.success("Successfully logged In!");
-        } else {
-          toast.error(" Invaild Credentials");
-        }
-      })
-      .catch((error) => {
-        toast.error(error);
-      });
-  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -51,15 +22,49 @@ const Login = () => {
       [name]: value,
     });
   };
+
+  const userDispatch = async (e) => { // Make userDispatch an async function
+    e.preventDefault();
+
+    if (formData.username.trim() === "") {
+      return toast.error("Please enter an email.");
+    }
+    if (formData.password.trim() === "") {
+      return toast.error("Please enter a password.");
+    }
+
+    const cookies = new Cookies();
+
+    try {
+      const response = await fetch("https://dummyjson.com/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        cookies.set("userToken", data.token);
+        router.push("/dashboard");
+        toast.success("Successfully logged in!");
+        dispatch(loginUser(data)); // Dispatch the loginUser action with the received data
+      } else {
+        toast.error("Invalid Credentials");
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between ">
+    <main className="flex min-h-screen flex-col items-center justify-between">
       <div className="p-12 m-auto max-w-[547px] border-slate-300 border border-rounded w-full shadow rounded bg-white text-red">
         <div className="mx-auto head-logo">
           <p className="pt-6 text-2xl font-semibold leading-6 text-center text-slate-800">
             Sign In Now
           </p>
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={userDispatch}>
           <div className="mt-8">
             <p className="text-base font-medium leading-none text-slate-800">
               Email
