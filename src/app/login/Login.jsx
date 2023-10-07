@@ -23,7 +23,8 @@ const Login = () => {
     });
   };
 
-  const userDispatch = async (e) => { // Make userDispatch an async function
+  const userDispatch = async (e) => {
+    // Make userDispatch an async function
     e.preventDefault();
 
     if (formData.username.trim() === "") {
@@ -47,7 +48,7 @@ const Login = () => {
         cookies.set("userToken", data.token);
         router.push("/dashboard");
         toast.success("Successfully logged in!");
-        dispatch(loginUser(data)); // Dispatch the loginUser action with the received data
+        dispatch(loginUser(data)); 
       } else {
         toast.error("Invalid Credentials");
       }

@@ -2,7 +2,7 @@ import LoginPage from "./login/page";
 
 export default function Home() {
   return (
-    <main>
+    <main >
       <LoginPage></LoginPage>
     </main>
   );

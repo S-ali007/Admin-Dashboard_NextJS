@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 const Logout = () => {
   const router = useRouter();
   const cookies = new Cookies();
-  const dispatch = useDispatch(); // Get the dispatch function from react-redux
+  const dispatch = useDispatch(); 
 
   const handleSubmit = (e,id) => {
     e.preventDefault();
