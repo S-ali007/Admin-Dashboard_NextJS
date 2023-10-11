@@ -3,13 +3,12 @@ import { useRouter } from "next/navigation";
 import { Cookies } from "react-cookie";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux"; // Import useDispatch from react-redux
+import { useDispatch } from "react-redux"; 
 import { loginUser } from "../redux/slice";
 
 const Login = () => {
   const router = useRouter();
-  const dispatch = useDispatch(); // Initialize useDispatch
-
+  const dispatch =useDispatch();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -24,7 +23,6 @@ const Login = () => {
   };
 
   const userDispatch = async (e) => {
-    // Make userDispatch an async function
     e.preventDefault();
 
     if (formData.username.trim() === "") {
@@ -48,7 +46,8 @@ const Login = () => {
         cookies.set("userToken", data.token);
         router.push("/dashboard");
         toast.success("Successfully logged in!");
-        dispatch(loginUser(data)); 
+        dispatch(loginUser(data));
+        console.log(data)
       } else {
         toast.error("Invalid Credentials");
       }
