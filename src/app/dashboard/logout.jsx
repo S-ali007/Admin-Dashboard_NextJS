@@ -8,13 +8,13 @@ import { useDispatch } from "react-redux";
 const Logout = () => {
   const router = useRouter();
   const cookies = new Cookies();
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e,id) => {
+  const handleSubmit = (e, id) => {
     e.preventDefault();
     cookies.remove("userToken");
-   
-    dispatch(removeUser({id})); 
+
+    dispatch(removeUser({ id }));
     router.push("/");
     toast.success("Successfully logged out!");
   };

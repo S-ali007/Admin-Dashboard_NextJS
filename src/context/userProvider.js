@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import UserContext from "./userContext";
 import { Cookies } from "react-cookie";
 import toast from "react-hot-toast";
+import { useContext } from "react";
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState(undefined);
@@ -46,3 +47,4 @@ const UserProvider = ({ children }) => {
 };
 
 export default UserProvider;
+// const {user , setuser } = useContext()

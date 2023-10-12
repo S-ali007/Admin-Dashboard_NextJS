@@ -4,10 +4,10 @@ import Logout from "./logout";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import { Cookies } from "react-cookie";
-import { data } from "autoprefixer"; 
+import { data } from "autoprefixer";
 const Dashboard = () => {
   const userData = useSelector((state) => state.user);
-  console.log(userData)
+  console.log(userData);
   return (
     <main className="flex min-h-screen flex-col items-center justify-between ">
       <div className="p-12 m-auto max-w-[547px] border-slate-300 border border-rounded w-full shadow rounded bg-white text-red">
